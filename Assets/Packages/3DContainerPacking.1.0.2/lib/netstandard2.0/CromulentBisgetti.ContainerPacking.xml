@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CromulentBisgetti.ContainerPacking</name>
+    </assembly>
+    <members>
+        <member name="F:CromulentBisgetti.ContainerPacking.Algorithms.AlgorithmType.EB_AFIT">
+            <summary>
+            The EB-AFIT packing algorithm type.
+            </summary>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT">
+            <summary>
+            A 3D bin packing algorithm originally ported from https://github.com/keremdemirer/3dbinpackingjs,
+            which itself was a JavaScript port of https://github.com/wknechtel/3d-bin-pack/, which is a C reconstruction 
+            of a novel algorithm developed in a U.S. Air Force master's thesis by Erhan Baltacioglu in 2001.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Run(CromulentBisgetti.ContainerPacking.Entities.Container,System.Collections.Generic.List{CromulentBisgetti.ContainerPacking.Entities.Item})">
+            <summary>
+            Runs the packing algorithm.
+            </summary>
+            <param name="container">The container to pack items into.</param>
+            <param name="items">The items to pack.</param>
+            <returns>The bin packing result.</returns>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.AnalyzeBox(System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Analyzes each unpacked box to find the best fitting one to the empty space given.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.CheckFound">
+            <summary>
+            After finding each box, the candidate boxes and the condition of the layer are examined.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ExecuteIterations(CromulentBisgetti.ContainerPacking.Entities.Container)">
+            <summary>
+            Executes the packing algorithm variants.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.FindBox(System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Finds the most proper boxes by looking at all six possible orientations,
+            empty space given, adjacent boxes, and pallet limits.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.FindLayer(System.Decimal)">
+            <summary>
+            Finds the most proper layer height by looking at the unpacked boxes and the remaining empty space available.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.FindSmallestZ">
+            <summary>
+            Finds the first to be packed gap in the layer edge.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Initialize(CromulentBisgetti.ContainerPacking.Entities.Container,System.Collections.Generic.List{CromulentBisgetti.ContainerPacking.Entities.Item})">
+            <summary>
+            Initializes everything.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ListCanditLayers">
+            <summary>
+            Lists all possible layer heights by giving a weight value to each of them.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.OutputBoxList">
+            <summary>
+            Transforms the found coordinate system to the one entered by the user and writes them
+            to the report file.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.PackLayer">
+            <summary>
+            Packs the boxes found and arranges all variables and records properly.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Report(CromulentBisgetti.ContainerPacking.Entities.Container)">
+            <summary>
+            Using the parameters found, packs the best solution found and
+            reports to the console.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.VolumeCheck">
+            <summary>
+            After packing of each item, the 100% packing condition is checked.
+            </summary>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Layer">
+            <summary>
+            A list that stores all the different lengths of all item dimensions.
+            From the master's thesis:
+            "Each Layerdim value in this array represents a different layer thickness
+            value with which each iteration can start packing. Before starting iterations,
+            all different lengths of all box dimensions along with evaluation values are
+            stored in this array" (p. 3-6).
+            </summary>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Layer.LayerDim">
+            <summary>
+            Gets or sets the layer dimension value, representing a layer thickness.
+            </summary>
+            <value>
+            The layer dimension value.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.Layer.LayerEval">
+            <summary>
+            Gets or sets the layer eval value, representing an evaluation weight
+            value for the corresponding LayerDim value.
+            </summary>
+            <value>
+            The layer eval value.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ScrapPad">
+            <summary>
+            From the master's thesis:
+            "The double linked list we use keeps the topology of the edge of the 
+            current layer under construction. We keep the x and z coordinates of 
+            each gap's right corner. The program looks at those gaps and tries to 
+            fill them with boxes one at a time while trying to keep the edge of the
+            layer even" (p. 3-7).
+            </summary>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ScrapPad.CumX">
+            <summary>
+            Gets or sets the x coordinate of the gap's right corner.
+            </summary>
+            <value>
+            The x coordinate of the gap's right corner.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ScrapPad.CumZ">
+            <summary>
+            Gets or sets the z coordinate of the gap's right corner.
+            </summary>
+            <value>
+            The z coordinate of the gap's right corner.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ScrapPad.Post">
+            <summary>
+            Gets or sets the following entry.
+            </summary>
+            <value>
+            The following entry.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Algorithms.EB_AFIT.ScrapPad.Pre">
+            <summary>
+            Gets or sets the previous entry.
+            </summary>
+            <value>
+            The previous entry.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Algorithms.IPackingAlgorithm">
+            <summary>
+            Interface for the packing algorithms in this project.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Algorithms.IPackingAlgorithm.Run(CromulentBisgetti.ContainerPacking.Entities.Container,System.Collections.Generic.List{CromulentBisgetti.ContainerPacking.Entities.Item})">
+            <summary>
+            Runs the algorithm on the specified container and items.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="items">The items to pack.</param>
+            <returns>The algorithm packing result.</returns>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.IsCompletePack">
+            <summary>
+            Gets or sets a value indicating whether all of the items are packed in the container.
+            </summary>
+            <value>
+            True if all the items are packed in the container; otherwise, false.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.PackedItems">
+            <summary>
+            Gets or sets the list of packed items.
+            </summary>
+            <value>
+            The list of packed items.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.PackTimeInMilliseconds">
+            <summary>
+            Gets or sets the elapsed pack time in milliseconds.
+            </summary>
+            <value>
+            The elapsed pack time in milliseconds.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.PercentContainerVolumePacked">
+            <summary>
+            Gets or sets the percent of container volume packed.
+            </summary>
+            <value>
+            The percent of container volume packed.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.PercentItemVolumePacked">
+            <summary>
+            Gets or sets the percent of item volume packed.
+            </summary>
+            <value>
+            The percent of item volume packed.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.AlgorithmPackingResult.UnpackedItems">
+            <summary>
+            Gets or sets the list of unpacked items.
+            </summary>
+            <value>
+            The list of unpacked items.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Entities.Container">
+            <summary>
+            The container to pack items into.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Entities.Container.#ctor(System.Int32,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Initializes a new instance of the Container class.
+            </summary>
+            <param name="id">The container ID.</param>
+            <param name="length">The container length.</param>
+            <param name="width">The container width.</param>
+            <param name="height">The container height.</param>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Container.ID">
+            <summary>
+            Gets or sets the container ID.
+            </summary>
+            <value>
+            The container ID.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Container.Length">
+            <summary>
+            Gets or sets the container length.
+            </summary>
+            <value>
+            The container length.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Container.Width">
+            <summary>
+            Gets or sets the container width.
+            </summary>
+            <value>
+            The container width.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Container.Height">
+            <summary>
+            Gets or sets the container height.
+            </summary>
+            <value>
+            The container height.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Container.Volume">
+            <summary>
+            Gets or sets the volume of the container.
+            </summary>
+            <value>
+            The volume of the container.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Entities.ContainerPackingResult">
+            <summary>
+            The container packing result.
+            </summary>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.ContainerPackingResult.ContainerID">
+            <summary>
+            Gets or sets the container ID.
+            </summary>
+            <value>
+            The container ID.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.Entities.Item">
+            <summary>
+            An item to be packed. Also used to hold post-packing details for the item.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.Entities.Item.#ctor(System.Int32,System.Decimal,System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            Initializes a new instance of the Item class.
+            </summary>
+            <param name="id">The item ID.</param>
+            <param name="dim1">The length of one of the three item dimensions.</param>
+            <param name="dim2">The length of another of the three item dimensions.</param>
+            <param name="dim3">The length of the other of the three item dimensions.</param>
+            <param name="quantity">The item quantity.</param>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.ID">
+            <summary>
+            Gets or sets the item ID.
+            </summary>
+            <value>
+            The item ID.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.IsPacked">
+            <summary>
+            Gets or sets a value indicating whether this item has already been packed.
+            </summary>
+            <value>
+              True if the item has already been packed; otherwise, false.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.Dim1">
+            <summary>
+            Gets or sets the length of one of the item dimensions.
+            </summary>
+            <value>
+            The first item dimension.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.Dim2">
+            <summary>
+            Gets or sets the length another of the item dimensions.
+            </summary>
+            <value>
+            The second item dimension.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.Dim3">
+            <summary>
+            Gets or sets the third of the item dimensions.
+            </summary>
+            <value>
+            The third item dimension.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.CoordX">
+            <summary>
+            Gets or sets the x coordinate of the location of the packed item within the container.
+            </summary>
+            <value>
+            The x coordinate of the location of the packed item within the container.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.CoordY">
+            <summary>
+            Gets or sets the y coordinate of the location of the packed item within the container.
+            </summary>
+            <value>
+            The y coordinate of the location of the packed item within the container.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.CoordZ">
+            <summary>
+            Gets or sets the z coordinate of the location of the packed item within the container.
+            </summary>
+            <value>
+            The z coordinate of the location of the packed item within the container.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.Quantity">
+            <summary>
+            Gets or sets the item quantity.
+            </summary>
+            <value>
+            The item quantity.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.PackDimX">
+            <summary>
+            Gets or sets the x dimension of the orientation of the item as it has been packed.
+            </summary>
+            <value>
+            The x dimension of the orientation of the item as it has been packed.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.PackDimY">
+            <summary>
+            Gets or sets the y dimension of the orientation of the item as it has been packed.
+            </summary>
+            <value>
+            The y dimension of the orientation of the item as it has been packed.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.PackDimZ">
+            <summary>
+            Gets or sets the z dimension of the orientation of the item as it has been packed.
+            </summary>
+            <value>
+            The z dimension of the orientation of the item as it has been packed.
+            </value>
+        </member>
+        <member name="P:CromulentBisgetti.ContainerPacking.Entities.Item.Volume">
+            <summary>
+            Gets the item volume.
+            </summary>
+            <value>
+            The item volume.
+            </value>
+        </member>
+        <member name="T:CromulentBisgetti.ContainerPacking.PackingService">
+            <summary>
+            The container packing service.
+            </summary>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.PackingService.Pack(System.Collections.Generic.List{CromulentBisgetti.ContainerPacking.Entities.Container},System.Collections.Generic.List{CromulentBisgetti.ContainerPacking.Entities.Item},System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Attempts to pack the specified containers with the specified items using the specified algorithms.
+            </summary>
+            <param name="containers">The list of containers to pack.</param>
+            <param name="itemsToPack">The items to pack.</param>
+            <param name="algorithmTypeIDs">The list of algorithm type IDs to use for packing.</param>
+            <returns>A container packing result with lists of the packed and unpacked items.</returns>
+        </member>
+        <member name="M:CromulentBisgetti.ContainerPacking.PackingService.GetPackingAlgorithmFromTypeID(System.Int32)">
+            <summary>
+            Gets the packing algorithm from the specified algorithm type ID.
+            </summary>
+            <param name="algorithmTypeID">The algorithm type ID.</param>
+            <returns>An instance of a packing algorithm implementing AlgorithmBase.</returns>
+            <exception cref="T:System.Exception">Invalid algorithm type.</exception>
+        </member>
+    </members>
+</doc>

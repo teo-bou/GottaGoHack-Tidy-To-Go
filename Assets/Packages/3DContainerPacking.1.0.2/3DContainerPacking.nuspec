@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>3DContainerPacking</id>
+    <version>1.0.2</version>
+    <authors>davidmchapman</authors>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <readme>README.md</readme>
+    <description>3D Container Packing (CromulentBisgetti.ContainerPacking)</description>
+    <copyright>Copyright davidmchapman 2019</copyright>
+    <repository type="git" url="https://github.com/DigitecGalaxus/3DContainerPacking.git" commit="8e5ab6399ac2f5be86c18bb954c5393ee5b53b89" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>
