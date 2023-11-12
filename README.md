@@ -2,6 +2,7 @@
 # Tidy To Go
 ### Inspiration
 *« La vie est un jeu » GottaGoHack 2023*
+---
 Nous nous sommes bien sûr inspirés de nos chambres étudiantes toujours bien rangés ! 😂
 ### Problème
 Nous voulons que ranger ne rime plus avec corvée tout en ayant la possibilité d’apprendre à adopter des méthodes de rangement plus optimales.
