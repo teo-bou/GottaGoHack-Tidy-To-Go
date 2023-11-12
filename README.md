@@ -2,6 +2,7 @@
 # Tidy To Go
 ### Inspiration
 *« La vie est un jeu » GottaGoHack 2023*
+---
 Nous nous sommes bien sûr inspirés de nos chambres étudiantes toujours bien rangés ! 😂
 ### Problème
 Nous voulons que ranger ne rime plus avec corvée tout en ayant la possibilité d’apprendre à adopter des méthodes de rangement plus optimales.
@@ -13,7 +14,7 @@ Nous allons d’abord nous concentrer sur les personnes qui souhaitent faire du 
 Nous élargirons ensuite nos cibles pour nous tourner rapidement vers les voyageurs en les aidant pour le rangement de leur valise et de leur coffre de voiture, par exemple. 
 De plus, cette application s’adresse à toutes les personnes un peu bordéliques qui veulent apprendre à mieux ranger en s’amusant.
 ### Business Model Canva
-Le Business Model Canva se trouve dans ce répertoire GitHub.
+Le [Business Model Canva](https://github.com/teo-bou/GottaGoHack-Tidy-To-Go/blob/main/Business%20Canva%20Tidy%20To%20Go.pdf) se trouve dans ce répertoire GitHub.
 Notre modèle de revenus serait le freemium de l’application ainsi que des partenariats stratégiques.
 
 ### Comment nous l’avons construit
